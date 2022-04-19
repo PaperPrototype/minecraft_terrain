@@ -5,7 +5,6 @@ using UnityEngine.Rendering;
 using Unity.Collections;
 using Unity.Jobs;
 using System.Runtime.CompilerServices;
-using Unity.Mathematics;
 
 public class Chunk
 {
@@ -115,12 +114,16 @@ public class Chunk
         return true;
     }
 
-    // only schedules is the previous job is completed
+    // only schedules if the previous job is completed
     public bool TrySchedule()
     {
         if (needsDrawn && m_jobHandle.IsCompleted)
         {
+            Debug.Log("scheduling a draw");
+
+            // create a new job
             m_job = new Defs.ChunkJob();
+
             m_job.vertices = m_vertices;
             m_job.triangles = m_triangles;
             m_job.uvs = m_uvs;
@@ -167,6 +170,10 @@ public class Chunk
 
         return false;
     }
+
+    // ALL FUNCTIONS BELOW THIS ARE NOT BEING USED
+    // I JUST KEEP THEM ARAOUND FOR REFERENCE
+    // ACTUAL CHUNK MESHING IS IN ChunkJob in Defs.cs
 
     private void DrawVoxel(int x, int y, int z)
     {

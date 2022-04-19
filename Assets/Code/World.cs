@@ -39,7 +39,7 @@ public class World : MonoBehaviour
         loaded = false;
 
         // don't wait in this frame for the chunks to  be finished
-        StartCoroutine(Setup());
+        StartCoroutine(Run());
     }
 
     private void OnDisable()
@@ -91,7 +91,7 @@ public class World : MonoBehaviour
         }
     }
 
-    private IEnumerator Setup()
+    private IEnumerator Run()
     {
         run = true;
         chunks = new Chunk[Defs.chunkNum, Defs.chunkNum, Defs.chunkNum];
